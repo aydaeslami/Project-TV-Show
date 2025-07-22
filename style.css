@@ -1,3 +1,50 @@
+
+
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+}
+
 #root {
-  color: red;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.episode-card {
+  width: 300px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nameFilm {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.episode-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.summeryFilm {
+  font-size: 0.9em;
+  color: #333;
+  text-align: justify;
+  max-height: 150px;
+  overflow-y: auto;
 }
