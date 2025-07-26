@@ -1,46 +1,32 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
-  const rootElem = document.getElementById("root");
-
-  for (let i = 0; i < allEpisodes.length; i++) {
-    // big div
-    const card = document.createElement("div");
-    card.classList.add("episode-card");
-
-    // name film
-    const nameInfo = document.createElement("div");
-    nameInfo.classList.add("nameFilm");
-
-    let seasonFilm = String(allEpisodes[i].season);
-    let numberFilm = String(allEpisodes[i].number);
-    nameInfo.textContent =
-      allEpisodes[i].name +
-      " - " +
-      "S" +
-      seasonFilm.padStart(2, "0") +
-      "E" +
-      numberFilm.padStart(2, "0");
-
-    // image
-    const episodeImage = document.createElement("img");
-    episodeImage.src = allEpisodes[i].image.medium;
-    episodeImage.classList.add("episode-image");
-    // summery film
-    const summeryFilm = document.createElement("div");
-    summeryFilm.classList.add("summeryFilm");
-
-    summeryFilm.innerHTML = allEpisodes[i].summary;
-
-    rootElem.appendChild(card);
-    card.appendChild(nameInfo);
-    card.appendChild(episodeImage);
-    card.appendChild(summeryFilm);
-  }
+  renderFilm(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+// Render function
+function padNumber(num) {
+  return num.toString().padStart(2, "0");
+}
+
+function formatEpisodeCode(season, number) {
+  return `S${padNumber(season)}E${padNumber(number)}`;
+}
+
+function renderFilm(episodeList) {
+  console.log("aida");
+  const containerEpisode = document.getElementById("root");
+  const templateEpisode = document.getElementById("episode-template");
+
+  episodeList.forEach((episode) => {
+    const clone = templateEpisode.content.cloneNode(true);
+    clone.querySelector("img").src = episode.image.medium;
+    clone.querySelector(".title").textContent =
+      episode.name + " - " + formatEpisodeCode(episode.season, episode.number);
+
+    clone.querySelector(".summary").innerHTML = episode.summary;
+
+    containerEpisode.append(clone);
+  });
 }
 
 window.onload = setup;
