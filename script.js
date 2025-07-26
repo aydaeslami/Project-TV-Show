@@ -2,7 +2,7 @@ function setup() {
   const allEpisodes = getAllEpisodes();
   const rootElem = document.getElementById("root");
 
-  for (let i = 0; i <= allEpisodes.length; i++) {
+  for (let i = 0; i < allEpisodes.length; i++) {
     // big div
     const card = document.createElement("div");
     card.classList.add("episode-card");
