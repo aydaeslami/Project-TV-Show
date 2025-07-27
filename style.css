@@ -1,11 +1,51 @@
-/* /* General styles */
+/* Horizontal header across the top */
+header {
+  position: sticky;       /* Stay at top when scrolling */
+  top: 0;
+  z-index: 1000;
+  display: flex;           /* Horizontal layout */
+  justify-content: space-between; /* Push left and right */
+  align-items: center;
+  background-color: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+/* Search box area - horizontal inline */
+#search-holder {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Search input box */
+#search-input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Title styling */
+header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+
+/* General styles */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8f9fa;
   margin: 0;
-  padding: 2rem;
+  padding: 0; /* Remove padding from body to allow header to stretch full width */
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Changed to column to stack header and root vertically */
+  align-items: center; /* Center content horizontally */
 }
 
 #root {
@@ -14,7 +54,10 @@ body {
   gap: 1.5rem;
   width: 100%;
   max-width: 1200px;
+  padding: 2rem; /* Add padding to root for content spacing */
+  box-sizing: border-box; /* Ensures padding is included in the element's total width */
 }
+
 
 /* Episode card style */
 .card {
