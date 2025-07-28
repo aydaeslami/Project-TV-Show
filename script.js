@@ -1,4 +1,5 @@
 let allEpisodes = [];
+const count = document.getElementById("match-count");
 
 async function setup() {
   // allEpisodes = getAllEpisodes();
@@ -37,8 +38,7 @@ function onSearch(event) {
       ep.summary.toLowerCase().includes(searchTerm)
     );
   });
-  const count = document.getElementById("match-count");
-
+  // Filling display
   count.innerText = `Display ${filtered.length}/${allEpisodes.length} episodes.`;
 
   renderFilm(filtered);
@@ -47,9 +47,15 @@ function onSearch(event) {
 function onSelect(event) {
   const value = event.target.value;
   if (value === "all") {
+    // Filling display
+    count.innerText = `Display ${allEpisodes.length}/${allEpisodes.length} episodes.`;
+
     renderFilm(allEpisodes);
   } else {
     const selectedEpisode = allEpisodes[parseInt(value)];
+    console.log(selectedEpisode.length);
+    const count = document.getElementById("match-count");
+    count.innerText = `Display 1/${allEpisodes.length} episodes.`;
     renderFilm([selectedEpisode]);
   }
 
