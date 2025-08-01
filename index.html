@@ -11,12 +11,20 @@
   <body>
     <header>
       <h1>TV-SHOW</h1>
+
       <div id="search-holder">
-        <label for="search">Search: </label>
-        <input type="text" name="search" id="search-input" />
+
+        <select id="show-select">
+          <option value="all">Select a show...</option>
+        </select>
+
         <select id="episode-select">
           <option value="all">-- Show All Episodes --</option>
         </select>
+
+        <label for="search">Search: </label>
+        <input type="text" name="search" id="search-input" />
+
         <p id="match-count"></p>
       </div>
     </header>
