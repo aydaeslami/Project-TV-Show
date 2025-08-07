@@ -76,6 +76,9 @@ async function setup() {
 
   allShows = await fetchAllShowsPaginated();
   console.log("Fetched all shows:", allShows);
+  document.getElementById(
+    "countShows"
+  ).innerHTML = `Total ${allShows.length} shows found.`;
 
   renderShow(allShows);
   updateCount(allShows.length, allShows.length);
@@ -127,7 +130,9 @@ function onSearch(event) {
     });
     filterShows = filtered; // Store filtered shows for later use
     console.log("Filtered shows:", filterShows);
-    document.getElementById("countShows").innerHTML = `Found ${filtered.length} shows`;
+    document.getElementById(
+      "countShows"
+    ).innerHTML = `Found ${filtered.length} shows`;
     renderShow(filtered);
     populateShowsMenu(filtered);
     updateCount(filtered.length, allShows.length);
@@ -231,7 +236,7 @@ function renderFilm(mediaList) {
   currentView = "episode";
   episodeSearchContainer.style.display = "block";
   showSearchHolder.style.display = "none";
-  document.body.classList.add("show-mode"); // 👈 اضافه شد
+  document.body.classList.add("show-mode");
   containerEpisode.innerHTML = "";
   const templateEpisode = document.getElementById("episode-template");
 
