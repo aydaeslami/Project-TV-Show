@@ -1,47 +1,91 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Aida Eslamimoghadam Test (aydaeslami)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <header>
+    <h1>🎬 TV-SHOW</h1>
 
-  <body>
-    <header>
-      <h1>TV-SHOW</h1>
-
-      <div id="search-holder">
-
-        <select id="show-select">
+    <!-- Show search visible first -->
+    <div id="showSearchHolder">
+      <div class="show-filter-group">
+        <span class="filterShow">📂 Filtering for:</span>
+        <input
+          type="text"
+          name="search"
+          id="searchShow"
+          placeholder="Type to search..."
+        />
+        <label for="searchShow" id="countShows">found x shows:</label>
+        <select id="selectShow">
           <option value="all">Select a show...</option>
         </select>
-
-        <select id="episode-select">
-          <option value="all">-- Show All Episodes --</option>
-        </select>
-
-        <label for="search">Search: </label>
-        <input type="text" name="search" id="search-input" />
-
-        <p id="match-count"></p>
       </div>
-    </header>
+    </div>
 
-    <div id="message"></div>
-    <div id="root"></div>
+    <!-- Episode search visible after click -->
+    <div id="search-holder">
+      <span class="filter-label">📂 Filter:</span>
+      <select id="episodeSelect">
+        <option value="all">-- Show All Episodes --</option>
+      </select>
+      <label for="searchEpisode">🔎 Search:</label>
+      <input
+        type="text"
+        name="search"
+        id="searchEpisode"
+        placeholder="Type to search..."
+      />
+      <p id="match-count">0 matches</p>
+      <button id="backBtn" class="backBtn">back to all shows</button>
+    </div>
+  </header>
 
-    <template id="episode-template">
-      <section class="card">
-        <h2 class="title"></h2>
+  <!-- Message container -->
+  <div id="message"></div>
+
+  <!-- Root container for cards -->
+  <div id="root"></div>
+
+  <!-- Episode Template -->
+  <template id="episode-template">
+    <section class="card">
+      <img src="" alt="Episode image" class="episode-img" />
+      <div class="card-content">
         <h3 class="code"></h3>
-        <img src="" alt="Episode image" />
+        <h2 class="title"></h2>
         <div class="summary"></div>
-      </section>
-    </template>
+        <a href="#" class="episode-url" target="_blank">▶️ Watch Episode</a>
+      </div>
+    </section>
+  </template>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Show Template -->
+  <template id="show-template">
+    <section class="show-card" data-show-id="">
+      <img src="" alt="Show image" class="show-img" />
+      <div class="showContent">
+        <h2 class="showTitle"></h2>
+        <div class="showSummary"></div>
+        <div class="showDetails">
+          <span><strong>Rated:</strong> <span class="showRated"></span></span>
+          <span><strong>Genres:</strong> <span class="showGenres"></span></span>
+          <span><strong>Status:</strong> <span class="showStatus"></span></span>
+          <span><strong>Runtime:</strong> <span class="showRuntime"></span></span>
+        </div>
+        <button class="watchShowBtn">▶️ Watch Show</button>
+      </div>
+    </section>
+  </template>
+
+   
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
 </html>

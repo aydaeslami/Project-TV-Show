@@ -1,158 +1,399 @@
-/* ====== Header ====== */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: linear-gradient(to right, #ffffff, #f8f9fa);
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #e1e1e1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column; 
-  align-items: center;
-  gap: 0.8rem;
-}
-
-/* Title */
-header h1 {
-  font-size: 1.8rem;
-  margin: 0;
-  font-weight: 700;
-  color: #333;
-  letter-spacing: 1px;
-}
-
-/* Search holder */
-#search-holder {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-#search-holder label {
-  font-size: 0.9rem;
-  color: #444;
-  font-weight: 500;
-}
-
-/* Styling input and both selects */
-#search-input,
-#episode-select,
-#show-select {
-  padding: 0.45rem 0.6rem;
-  font-size: 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  transition: border-color 0.2s ease;
-}
-
-/* Focus state for input and both selects */
-#search-input:focus,
-#episode-select:focus,
-#show-select:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
-}
-
-#match-count {
-  font-size: 0.85rem;
-  color: #666;
-  margin-left: 0.5rem;
-}
-
 /* ====== Body ====== */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a3b5d, #20263e, #2a5d8f);
+  background-attachment: fixed;
+  background-size: cover;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #f8f9fa;
+  position: relative;
 }
 
-/* ====== Cards Layout ====== */
+/* ====== Header ====== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(90deg, #229ED9, #5865f2);
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+header h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, #bbdefb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Shared style for both showSearchHolder and search-holder ===== */
+#showSearchHolder,
+body.show-mode #search-holder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 1200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+/* ====== hide/show logic ====== */
+#search-holder {
+  display: none;
+}
+
+body.show-mode #showSearchHolder {
+  display: none;
+}
+
+body.show-mode #search-holder {
+  display: flex;
+}
+
+/* ===== Elements inside both holders ===== */
+#showSearchHolder span,
+#showSearchHolder label,
+#showSearchHolder input,
+#showSearchHolder select,
+body.show-mode #search-holder span,
+body.show-mode #search-holder label,
+body.show-mode #search-holder input,
+body.show-mode #search-holder select,
+body.show-mode #search-holder button,
+body.show-mode #search-holder #match-count {
+  height: 42px;
+  line-height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+}
+
+.filterShow,
+.filter-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+#showSearchHolder label,
+body.show-mode #search-holder label {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+#showSearchHolder input,
+body.show-mode #search-holder input {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#showSearchHolder input:focus,
+body.show-mode #search-holder input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+#selectShow,
+#episodeSelect {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+#selectShow:focus,
+#episodeSelect:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+#countShows,
+#match-count {
+  color: #e6f7ff;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Back button */
+#backBtn {
+  background: linear-gradient(90deg, #229ED9, #00c6ff);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  padding: 0 16px;
+  height: 42px;
+  line-height: 42px;
+  box-shadow: 0 4px 10px rgba(34, 158, 217, 0.3);
+}
+
+#backBtn:hover {
+  background: linear-gradient(90deg, #00c6ff, #229ED9);
+  transform: translateY(-2px);
+}
+
+/* ====== Cards Container ====== */
 #root {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 1.8rem;
   width: 100%;
-  max-width: 1100px;
-  padding: 1.5rem;
+  max-width: 1200px;
+  padding: 2rem;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
-
+/* ====== Episode Card ====== */
 .card {
-  flex: 0 0 calc(33.33% - 1.2rem); 
-  max-width: 300px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  padding: 0.8rem;
+  flex: 0 0 calc(33.33% - 1.8rem);
+  max-width: 320px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease-in-out;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(8px);
+  padding-bottom: 3.5rem;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-}
-
-/* عنوان و کد */
-.title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-.code {
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: #555;
-  margin: 0.15rem 0 0.8rem 0;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
 }
 
 .card img {
   width: 100%;
   height: auto;
-  border-radius: 6px;
-  margin-bottom: 0.8rem;
-  object-fit: cover;
+  max-height: 200px;
+  object-fit: contain;
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.card-content {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: #ffffff;
+}
+
+.code {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #f0f0f0;
+  margin: 0;
+}
 
 .summary {
+  font-size: 0.92rem;
+  color: #ffffff;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  max-height: 100px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.summary::-webkit-scrollbar {
+  width: 6px;
+}
+
+.summary::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.summary::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.episode-url {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  padding: 0.7rem 1rem;
+  background: linear-gradient(90deg, #229ED9, #00c6ff);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: calc(100% - 24px);
+  box-shadow: 0 4px 10px rgba(34, 158, 217, 0.3);
+}
+
+.episode-url:hover {
+  background: linear-gradient(90deg, #00c6ff, #229ED9);
+  transform: translateY(-2px);
+}
+
+/* ====== Show Card ====== */
+.show-card {
+  display: flex;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(8px);
+  padding: 1rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.show-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
+}
+
+.show-img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #000;
+}
+
+.showContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.showTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0.2rem 0;
+  color: #ffffff;
+}
+
+.showSummary {
+  font-size: 0.95rem;
+  color: #ffffff;
+  line-height: 1.5;
+  margin: 0.8rem 0;
+}
+
+.showDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.8rem;
+  border-radius: 10px;
+  width: fit-content;
+  min-width: 220px;
+  margin: 1rem 0;
+}
+
+.showDetails span {
   font-size: 0.9rem;
-  color: #333;
-  line-height: 1.4;
+  color: #f1f1f1;
+}
+
+.showUrl,
+.watchShowBtn {
+  padding: 0.7rem 1rem;
+  background: linear-gradient(90deg, #229ED9, #00c6ff);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: fit-content;
+  box-shadow: 0 4px 10px rgba(34, 158, 217, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.showUrl:hover,
+.watchShowBtn:hover {
+  background: linear-gradient(90deg, #00c6ff, #229ED9);
+  transform: translateY(-2px);
 }
 
 /* ====== Responsive ====== */
 @media (max-width: 900px) {
   .card {
-    flex: 0 0 calc(50% - 1.2rem); 
+    flex: 0 0 calc(50% - 1.2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .show-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .show-img {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .showDetails {
+    width: 100%;
+  }
+
+  .showUrl,
+  .watchShowBtn {
+    width: 100%;
   }
 }
 
 @media (max-width: 600px) {
-  .card {
-    flex: 0 0 100%; 
-  }
-}
-
-@media (max-width: 600px) {
-  .card {
-    flex: 0 0 100%;
-  }
-
+  #showSearchHolder,
   #search-holder {
     flex-direction: column;
     align-items: stretch;
@@ -160,14 +401,18 @@ body {
     width: 100%;
   }
 
-  #search-input,
-  #episode-select,
-  #show-select {
+  #showSearchHolder input,
+  #showSearchHolder select,
+  #search-holder input,
+  #search-holder select,
+  #backBtn {
     width: 100%;
+    min-width: unset;
+    max-width: unset;
   }
 
+  #countShows,
   #match-count {
-    margin-left: 0;
     text-align: center;
   }
 
@@ -175,4 +420,3 @@ body {
     padding: 1rem;
   }
 }
-
