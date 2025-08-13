@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +11,9 @@
   <header>
     <h1>🎬 TV-SHOW</h1>
 
-    <!-- Show search visible first -->
+    <!-- SEARCH BAR FOR SHOWS -->
+    <!-- This search is shown first when the page loads -->
+    <!-- Lets user search TV shows by name, summary, or genre -->
     <div id="showSearchHolder">
       <div class="show-filter-group">
         <span class="filterShow">📂 Filtering for:</span>
@@ -29,7 +30,9 @@
       </div>
     </div>
 
-    <!-- Episode search visible after click -->
+    <!-- SEARCH BAR FOR EPISODES -->
+    <!-- This appears after the user selects a show -->
+    <!-- Lets user filter or search episodes within that show -->
     <div id="search-holder">
       <span class="filter-label">📂 Filter:</span>
       <select id="episodeSelect">
@@ -53,7 +56,8 @@
   <!-- Root container for cards -->
   <div id="root"></div>
 
-  <!-- Episode Template -->
+  <!-- Template for displaying a single episode card -->
+  <!-- This is cloned in JavaScript for each episode -->
   <template id="episode-template">
     <section class="card">
       <img src="" alt="Episode image" class="episode-img" />
@@ -66,7 +70,8 @@
     </section>
   </template>
 
-  <!-- Show Template -->
+  <!-- Template for displaying a single TV show card -->
+  <!-- This is cloned in JavaScript for each show -->
   <template id="show-template">
     <section class="show-card" data-show-id="">
       <img src="" alt="Show image" class="show-img" />
@@ -84,7 +89,6 @@
     </section>
   </template>
 
-   
   <!-- Loads YOUR javascript code -->
   <script src="script.js"></script>
 </body>
