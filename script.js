@@ -23,7 +23,6 @@ HOW IT WORKS:
    - fetchWithCache() avoids duplicate API requests.
 */
 
-
 let allShows = [];
 let episodeCount = 0;
 let currentView = "show"; // Track current status display
@@ -38,11 +37,6 @@ const episodeSearchContainer = document.getElementById("search-holder");
 const showSearchContainer = document.getElementById("showSearchHolder");
 
 // ----------------------- Main Setup -----------------------
-
-// Test function to check if the script is working
-function testAida() {
-  console.log("testAida function called");
-}
 
 // ----------------------- Fetching functions -----------------------
 
@@ -115,6 +109,7 @@ async function setup() {
 
   renderShow(allShows);
   updateCount(allShows.length, allShows.length);
+  populateShowsMenu(allShows);
   document.getElementById("episodeSelect").innerHTML =
     '<option value="all">-- No Episodes --</option>';
 

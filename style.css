@@ -466,3 +466,8 @@ body.show-mode #search-holder input:focus{
   .episode-url:hover,
   #backBtn:hover{ transform: none !important; }
 }
+#searchShow::placeholder,
+#searchEpisode::placeholder {
+  color: black;
+  opacity: 1; 
+}
