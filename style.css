@@ -50,7 +50,6 @@
 body{
   font-family: 'Poppins','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
   background: var(--bg-grad);
-  /* Fixed background is janky on mobile; disable below */
   background-attachment: fixed;
   background-size: cover;
   margin: 0;
@@ -63,7 +62,6 @@ body{
   text-rendering: optimizeLegibility;
 }
 
-/* Disable fixed background on small screens for smoother scroll */
 @media (max-width: 900px){
   body{ background-attachment: scroll; }
 }
@@ -82,12 +80,11 @@ header{
   align-items: center;
   gap: var(--gap-sm);
   box-shadow: var(--shadow-sm);
-  /* Only use blur if supported (it's expensive) */
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
 @supports not ((backdrop-filter: blur(6px)) or (-webkit-backdrop-filter: blur(6px))){
-  header{ background: rgba(34,158,217,0.9); } /* graceful fallback */
+  header{ background: rgba(34,158,217,0.9); }
 }
 
 header h1{
@@ -179,10 +176,11 @@ body.show-mode #search-holder input:focus{
   box-shadow: 0 0 8px rgba(255,255,255,0.25);
 }
 
+/* اینجا رنگ متن رو مشکی کردم */
 #selectShow,
 #episodeSelect{
   background: var(--field-bg);
-  color: #fff;
+  color: #000;
   border: 1px solid var(--field-border);
   transition: box-shadow var(--transition), background var(--transition);
   cursor: pointer;
@@ -234,7 +232,6 @@ body.show-mode #search-holder input:focus{
   box-sizing: border-box;
   position: relative;
   z-index: 1;
-  /* Avoid reflow when lots of cards render */
   contain: content;
 }
 
@@ -254,9 +251,8 @@ body.show-mode #search-holder input:focus{
   backdrop-filter: blur(8px);
   padding-bottom: 3.5rem;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  /* Big perf win when many cards: */
   content-visibility: auto;
-  contain-intrinsic-size: 380px 320px; /* rough placeholder to reduce CLS while offscreen */
+  contain-intrinsic-size: 380px 320px;
 }
 .card:hover{
   transform: translateY(-6px);
@@ -265,7 +261,6 @@ body.show-mode #search-holder input:focus{
 
 .card img{
   width: 100%;
-  /* Help CLS: lock aspect ratio; adjust if you know common poster ratio */
   aspect-ratio: 16 / 10;
   height: auto;
   object-fit: contain;
@@ -273,7 +268,6 @@ body.show-mode #search-holder input:focus{
   border-bottom: 1px solid var(--glass-border);
 }
 
-/* Card content */
 .card-content{ padding: 1rem; }
 
 .title{
@@ -352,7 +346,7 @@ body.show-mode #search-holder input:focus{
 
 .show-img{
   width: 200px;
-  aspect-ratio: 2 / 3; /* helps prevent CLS while image loads */
+  aspect-ratio: 2 / 3;
   height: auto;
   object-fit: cover;
   border-radius: 10px;
@@ -465,7 +459,6 @@ body.show-mode #search-holder input:focus{
   header{ padding: 1rem; }
 }
 
-/* ===== Respect reduced motion for users who prefer it ===== */
 @media (prefers-reduced-motion: reduce){
   *{ transition: none !important; animation: none !important; }
   .card:hover,
