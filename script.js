@@ -1,4 +1,29 @@
-// let allEpisodes = [];
+/*
+HOW IT WORKS:
+1. When the page loads, setup() runs:
+   - Hides episode search bar.
+   - Fetches all shows from TVMaze API (with caching).
+   - Displays shows in alphabetical order.
+   - Connects event listeners for searching and selecting.
+
+2. User Actions:
+   - Search box filters shows or episodes depending on current view.
+   - Selecting a show loads its episodes.
+   - Selecting an episode shows only that episode.
+   - Back button returns to all shows.
+
+3. Rendering:
+   - renderShow() displays all shows with info and image.
+   - renderFilm() displays all episodes for a show.
+   - Dropdown menus are updated using populateShowsMenu() and populateEpisodeMenu().
+
+4. Helpers:
+   - updateCount() shows how many items are displayed.
+   - padNumber() and formatEpisodeCode() format season/episode numbers.
+   - fetchWithCache() avoids duplicate API requests.
+*/
+
+
 let allShows = [];
 let episodeCount = 0;
 let currentView = "show"; // Track current status display
@@ -11,12 +36,17 @@ const countShow = document.getElementById("countShow ");
 const messageElement = document.getElementById("message");
 const episodeSearchContainer = document.getElementById("search-holder");
 const showSearchContainer = document.getElementById("showSearchHolder");
+
 // ----------------------- Main Setup -----------------------
+
+// Test function to check if the script is working
 function testAida() {
   console.log("testAida function called");
 }
+
 // ----------------------- Fetching functions -----------------------
 
+// Fetch data from API but use cache to avoid duplicate requests
 async function fetchWithCache(url) {
   if (fetchCache.has(url)) {
     return fetchCache.get(url);
@@ -34,6 +64,7 @@ async function fetchWithCache(url) {
   }
 }
 
+// Get episodes for a specific show ID
 async function fetchEpisodesForShow(showId) {
   try {
     messageElement.textContent = "Loading episodes...";
@@ -50,6 +81,7 @@ async function fetchEpisodesForShow(showId) {
   }
 }
 
+// Get all shows from the API, split into multiple pages
 async function fetchAllShowsPaginated(maxPages = 10) {
   let all = [];
 
@@ -71,6 +103,7 @@ async function fetchAllShowsPaginated(maxPages = 10) {
   );
 }
 
+// Prepare the app: hide episode search, load shows, set event listeners
 async function setup() {
   episodeSearchContainer.style.display = "none";
 
@@ -87,11 +120,9 @@ async function setup() {
 
   document.getElementById("searchEpisode").addEventListener("keyup", onSearch);
   document.getElementById("searchShow").addEventListener("keyup", onSearch);
-  ////
   document
     .getElementById("selectShow")
     .addEventListener("change", onSelectSingleShow);
-  /////
   document
     .getElementById("episodeSelect")
     .addEventListener("change", onSelectEpisode);
@@ -106,6 +137,7 @@ document.getElementById("backBtn").addEventListener("click", () => {
 
 // ----------------------- EventListener function logics -----------------------
 
+// Search shows or episodes depending on the current view
 function onSearch(event) {
   const searchTerm = event.target.value.toLowerCase();
   console.log("Search term:", searchTerm);
@@ -139,6 +171,7 @@ function onSearch(event) {
   }
 }
 
+// Show selected episode or all episodes
 function onSelectEpisode(event) {
   const value = event.target.value;
   if (value === "all") {
@@ -152,6 +185,7 @@ function onSelectEpisode(event) {
   document.getElementById("search-input").value = "";
 }
 
+// Load and display episodes for the selected show
 async function onSelectShow(event) {
   const showId = event.target.value;
 
@@ -175,6 +209,8 @@ async function onSelectShow(event) {
   document.getElementById("search-input").value = "";
   document.getElementById("episodeSelect").value = "all";
 }
+
+// Display only the selected show from the dropdown
 function onSelectSingleShow(event) {
   const showId = event.target.value;
 
@@ -190,22 +226,27 @@ function onSelectSingleShow(event) {
     updateCount(1, allShows.length);
   }
 }
+
 // ----------------------- Helper functions -----------------------
 
+// Update the text showing how many episodes are displayed
 function updateCount(displayed, total) {
   count.innerText = `Displaying ${displayed}/${total} episodes.`;
 }
 
+// Add zero in front of numbers smaller than 10
 function padNumber(num) {
   return num.toString().padStart(2, "0");
 }
 
+// Format season and episode into SxxExx
 function formatEpisodeCode(season, number) {
   return `S${padNumber(season)}E${padNumber(number)}`;
 }
 
 // ----------------------- Render functions -----------------------
 
+// Fill the episode dropdown menu
 function populateEpisodeMenu(episodes) {
   console.log("Populating episode menu...");
   const select = document.getElementById("episodeSelect");
@@ -220,6 +261,7 @@ function populateEpisodeMenu(episodes) {
   });
 }
 
+// Fill the show dropdown menu
 function populateShowsMenu(shows) {
   const showSelect = document.getElementById("selectShow");
   showSelect.innerHTML = '<option value="all">-- Show All Shows --</option>';
@@ -232,6 +274,7 @@ function populateShowsMenu(shows) {
   });
 }
 
+// Show episodes on the page
 function renderFilm(mediaList) {
   currentView = "episode";
   episodeSearchContainer.style.display = "block";
@@ -267,6 +310,7 @@ function renderFilm(mediaList) {
   });
 }
 
+// Show list of shows on the page
 function renderShow(mediaList) {
   currentView = "show";
   episodeSearchContainer.style.display = "none";
@@ -305,6 +349,9 @@ function renderShow(mediaList) {
   });
 }
 
+// ----------------------- Page load -----------------------
+
+// Start the app and handle clicking "Watch" button on a show
 window.onload = () => {
   setup();
 
